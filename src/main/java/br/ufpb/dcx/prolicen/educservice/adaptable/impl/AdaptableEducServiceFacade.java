@@ -2,10 +2,6 @@ package br.ufpb.dcx.prolicen.educservice.adaptable.impl;
 
 import java.util.List;
 
-import com.nanuvem.lom.api.Facade;
-import com.nanuvem.lom.business.BusinessFacade;
-import com.nanuvem.lom.kernel.dao.MySqlDaoFactory;
-
 import br.ufpb.dcx.prolicen.educservice.educservice.Aluno;
 import br.ufpb.dcx.prolicen.educservice.educservice.EducServiceFacade;
 import br.ufpb.dcx.prolicen.educservice.educservice.Exercicio;
@@ -14,14 +10,19 @@ import br.ufpb.dcx.prolicen.educservice.educservice.QuestaoDissertativa;
 import br.ufpb.dcx.prolicen.educservice.educservice.QuestaoMultiplaEscolha;
 import br.ufpb.dcx.prolicen.educservice.educservice.QuestaoVouF;
 
+import com.nanuvem.lom.api.Facade;
+import com.nanuvem.lom.business.FacadeFactory;
+
 public class AdaptableEducServiceFacade implements EducServiceFacade {
 
-	private Facade lomFacade ;
+	private Facade lomFacade;
 	private QuestaoMultiplaEscolhaService questaoMultiplaEscolhaService;
-	
-	public AdaptableEducServiceFacade(){
-		new BusinessFacade(new MySqlDaoFactory());
-		questaoMultiplaEscolhaService = new QuestaoMultiplaEscolhaService(lomFacade);
+
+	public AdaptableEducServiceFacade() {
+		this.lomFacade = new FacadeFactory().createFacade();
+
+		this.questaoMultiplaEscolhaService = new QuestaoMultiplaEscolhaService(
+				lomFacade);
 	}
 
 	public Aluno criarAluno(String login, String senha) {
@@ -90,8 +91,22 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 
 	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
 			String enunciado, List<String> alternativas) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return this.questaoMultiplaEscolhaService.cadastrarQuestaoME(
+				idExercicio, enunciado, alternativas, null);
+	}
+
+	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
+			String enunciado, List<String> alternativas, int alternativaCorreta) {
+
+		return this.questaoMultiplaEscolhaService.cadastrarQuestaoME(
+				idExercicio, enunciado, alternativas, alternativaCorreta);
+	}
+
+	public QuestaoMultiplaEscolha pesquisarQuestaoMEPorId(String idExercicio,
+			String idQuestao) {
+		
+		return this.questaoMultiplaEscolhaService.pesquisarQuestaoMEPorId(idQuestao);
 	}
 
 	public QuestaoVouF cadastrarQuestaoVouF(String idExercicio,
@@ -107,12 +122,6 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 	}
 
 	public Questao pesquisarQuestaoPorId(String idExercicio, String idQuestao) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public QuestaoMultiplaEscolha pesquisarQuestaoMEPorId(String idExercicio,
-			String idQuestao) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -145,13 +154,6 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 			String idExercicio, String idQuestao, String solucao) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
-			String enunciado, List<String> alternativas, int alternativaCorreta) {
-
-		return this.questaoMultiplaEscolhaService.cadastrarQuestaoME(
-				idExercicio, enunciado, alternativas, alternativaCorreta);
 	}
 
 	public QuestaoVouF cadastrarQuestaoVouF(String idExercicio,
