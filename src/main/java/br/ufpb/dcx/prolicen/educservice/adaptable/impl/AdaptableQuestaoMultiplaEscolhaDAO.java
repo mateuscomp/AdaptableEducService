@@ -11,12 +11,20 @@ import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.api.Property;
 import com.nanuvem.lom.api.PropertyType;
 
-public class QuestaoMultiplaEscolhaService {
+public class AdaptableQuestaoMultiplaEscolhaDAO extends AdaptableDAO {
 
 	private static final int INDICE_ID = 0;
+	private static final int INDICE_ENUNCIADO = 2;
+	private static final int INDICE_ALTERNATIVA_CORRETA = 3;
+	private static final int INDICE_ALTERNATIVA_A = 4;
+	private static final int INDICE_ALTERNATIVA_B = 5;
+	private static final int INDICE_ALTERNATIVA_C = 6;
+	private static final int INDICE_ALTERNATIVA_D = 7;
+	private static final int INDICE_ALTERNATIVA_E = 8;
 
 	private static final String FULLNAME_QUESTAO_MULTIPLA_ESCOLHA = "br.ufpb.educservice.QuestaoMultiplaEscolha";
 
+	private static final String ID_PROPERTY_TYPE_NAME = "id";
 	private static final String ENUNCIADO_PROPERTY_TYPE_NAME = "enunciado";
 	private static final String ALTERNATIVA_CORRETA_PROPERTY_TYPE_NAME = "alternativaCorreta";
 	private static final String ALTERNATIVA_A_PROPERTY_TYPE_NAME = "alternativaA";
@@ -25,9 +33,6 @@ public class QuestaoMultiplaEscolhaService {
 	private static final String ALTERNATIVA_D_PROPERTY_TYPE_NAME = "alternativaD";
 	private static final String ALTERNATIVA_E_PROPERTY_TYPE_NAME = "alternativaE";
 	private static final String ID_EXERCICIO_PROPERTY_TYPE_NAME = "idExercicio";
-	private static final String ID_PROPERTY_TYPE_NAME = "id";
-
-	private Facade lomFacade;
 
 	private EntityType questaoMultilplaEscolhaET;
 
@@ -41,14 +46,17 @@ public class QuestaoMultiplaEscolhaService {
 	private PropertyType idExercicioPT;
 	private PropertyType idPT;
 
-	public QuestaoMultiplaEscolhaService(Facade lomFacade) {
-		this.lomFacade = lomFacade;
-		this.carregarEntityTypeEPropertyType();
+	public AdaptableQuestaoMultiplaEscolhaDAO(Facade lomFacade) {
+		super(lomFacade);
 	}
 
-	private void carregarEntityTypeEPropertyType() {
+	@Override
+	protected void construirEntitiesTypesEPropertiesTypes() {
 		questaoMultilplaEscolhaET = this.lomFacade
 				.findEntityTypeByFullName(FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+
+		idPT = this.lomFacade.findPropertyTypeByNameAndFullnameEntityType(
+				ID_PROPERTY_TYPE_NAME, FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
 
 		enunciadoPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
@@ -89,9 +97,6 @@ public class QuestaoMultiplaEscolhaService {
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ID_EXERCICIO_PROPERTY_TYPE_NAME,
 						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
-
-		idPT = this.lomFacade.findPropertyTypeByNameAndFullnameEntityType(
-				ID_PROPERTY_TYPE_NAME, FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
 	}
 
 	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
@@ -124,28 +129,39 @@ public class QuestaoMultiplaEscolhaService {
 		properties.add(alternativaCorretaProperty);
 
 		// Atribuindo valor para a alternativa A
+		int indiceAlternativaANoArrayDeProperties = 0;
+		int indiceAlternativaBNoArrayDeProperties = 1;
+		int indiceAlternativaCNoArrayDeProperties = 2;
+		int indiceAlternativaDNoArrayDeProperties = 3;
+		int indiceAlternativaENoArrayDeProperties = 4;
+
 		Property alternativaAProperty = newProperty(alternativaAPT,
-				alternativas.get(0), questaoMEEntity);
+				alternativas.get(indiceAlternativaANoArrayDeProperties),
+				questaoMEEntity);
 		properties.add(alternativaAProperty);
 
 		// Atribuindo valor para a alternativa B
 		Property alternativaBProperty = newProperty(alternativaBPT,
-				alternativas.get(1), questaoMEEntity);
+				alternativas.get(indiceAlternativaBNoArrayDeProperties),
+				questaoMEEntity);
 		properties.add(alternativaBProperty);
 
 		// Atribuindo valor para a alternativa C
 		Property alternativaCProperty = newProperty(alternativaCPT,
-				alternativas.get(2), questaoMEEntity);
+				alternativas.get(indiceAlternativaCNoArrayDeProperties),
+				questaoMEEntity);
 		properties.add(alternativaCProperty);
 
 		// Atribuindo valor para a alternativa D
 		Property alternativaDProperty = newProperty(alternativaDPT,
-				alternativas.get(3), questaoMEEntity);
+				alternativas.get(indiceAlternativaDNoArrayDeProperties),
+				questaoMEEntity);
 		properties.add(alternativaDProperty);
 
 		// Atribuindo valor para a alternativa E
 		Property alternativaEProperty = newProperty(alternativaEPT,
-				alternativas.get(4), questaoMEEntity);
+				alternativas.get(indiceAlternativaENoArrayDeProperties),
+				questaoMEEntity);
 		properties.add(alternativaEProperty);
 
 		return this.converterEmUmaQuestaoME(lomFacade.create(questaoMEEntity));
@@ -172,37 +188,28 @@ public class QuestaoMultiplaEscolhaService {
 
 		// int idDoExercicio = Integer.parseInt(properties.get(1).getValue());
 
-		String enunciado = properties.get(2).getValue();
-		int alternativaCorreta = Integer.parseInt(properties.get(3).getValue());
+		String enunciado = properties.get(INDICE_ENUNCIADO).getValue();
+		int alternativaCorreta = Integer.parseInt(properties.get(
+				INDICE_ALTERNATIVA_CORRETA).getValue());
 
 		List<String> alternativas = new ArrayList<String>();
 
-		String alternativaA = properties.get(4).getValue();
+		String alternativaA = properties.get(INDICE_ALTERNATIVA_A).getValue();
 		alternativas.add(alternativaA);
 
-		String alternativaB = properties.get(5).getValue();
+		String alternativaB = properties.get(INDICE_ALTERNATIVA_B).getValue();
 		alternativas.add(alternativaB);
 
-		String alternativaC = properties.get(6).getValue();
+		String alternativaC = properties.get(INDICE_ALTERNATIVA_C).getValue();
 		alternativas.add(alternativaC);
 
-		String alternativaD = properties.get(7).getValue();
+		String alternativaD = properties.get(INDICE_ALTERNATIVA_D).getValue();
 		alternativas.add(alternativaD);
 
-		String alternativaE = properties.get(8).getValue();
+		String alternativaE = properties.get(INDICE_ALTERNATIVA_E).getValue();
 		alternativas.add(alternativaE);
 
 		return new QuestaoMultiplaEscolha(id, enunciado, alternativas,
 				alternativaCorreta);
-	}
-
-	private Property newProperty(PropertyType propertyType, String value,
-			Entity entity) {
-
-		Property property = new Property();
-		property.setPropertyType(propertyType);
-		property.setValue(value);
-		property.setEntity(entity);
-		return property;
 	}
 }

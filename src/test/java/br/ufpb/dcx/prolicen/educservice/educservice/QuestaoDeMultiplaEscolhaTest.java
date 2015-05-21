@@ -55,6 +55,5 @@ public class QuestaoDeMultiplaEscolhaTest {
 			Assert.assertEquals(alternativas.get(i), qMEPesquisada
 					.getAlternativas().get(i));
 		}
-
 	}
 }
