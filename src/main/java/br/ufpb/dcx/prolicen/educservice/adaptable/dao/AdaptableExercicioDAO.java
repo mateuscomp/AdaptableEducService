@@ -51,32 +51,32 @@ public class AdaptableExercicioDAO extends AdaptableDAO {
 		properties.add(idProperty);
 
 		if (palavrasChave != null && palavrasChave.get(0) != null) {
-			Property palavraChave01Property = new Property();
-			palavraChave01Property.setPropertyType(this.palavraChave01PT);
+			Property palavraChave01Property = newProperty(palavraChave01PT,
+					palavrasChave.get(0), exercicioEntity);
 			properties.add(palavraChave01Property);
 		}
 
 		if (palavrasChave != null && palavrasChave.get(1) != null) {
-			Property palavraChave02Property = new Property();
-			palavraChave02Property.setPropertyType(this.palavraChave02PT);
+			Property palavraChave02Property = newProperty(palavraChave02PT,
+					palavrasChave.get(1), exercicioEntity);
 			properties.add(palavraChave02Property);
 		}
 
 		if (palavrasChave != null && palavrasChave.get(2) != null) {
-			Property palavraChave03Property = new Property();
-			palavraChave03Property.setPropertyType(this.palavraChave03PT);
+			Property palavraChave03Property = newProperty(palavraChave03PT,
+					palavrasChave.get(2), exercicioEntity);
 			properties.add(palavraChave03Property);
 		}
 
 		if (palavrasChave != null && palavrasChave.get(3) != null) {
-			Property palavraChave04Property = new Property();
-			palavraChave04Property.setPropertyType(this.palavraChave04PT);
+			Property palavraChave04Property = newProperty(palavraChave04PT,
+					palavrasChave.get(3), exercicioEntity);
 			properties.add(palavraChave04Property);
 		}
 
 		if (palavrasChave != null && palavrasChave.get(4) != null) {
-			Property palavraChave05Property = new Property();
-			palavraChave05Property.setPropertyType(this.palavraChave05PT);
+			Property palavraChave05Property = newProperty(palavraChave04PT,
+					palavrasChave.get(4), exercicioEntity);
 			properties.add(palavraChave05Property);
 		}
 		exercicioEntity.setProperties(properties);
