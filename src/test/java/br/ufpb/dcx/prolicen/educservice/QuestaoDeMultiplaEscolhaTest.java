@@ -1,4 +1,4 @@
-package br.ufpb.dcx.prolicen.educservice.educservice;
+package br.ufpb.dcx.prolicen.educservice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,9 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.ufpb.dcx.prolicen.educservice.adaptable.impl.AdaptableEducServiceFacade;
+import br.ufpb.dcx.prolicen.educservice.model.AdaptableEducServiceFacade;
+import br.ufpb.dcx.prolicen.educservice.model.EducServiceFacade;
+import br.ufpb.dcx.prolicen.educservice.model.QuestaoMultiplaEscolha;
 
 public class QuestaoDeMultiplaEscolhaTest {
 

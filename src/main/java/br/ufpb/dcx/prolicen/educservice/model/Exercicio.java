@@ -1,4 +1,4 @@
-package br.ufpb.dcx.prolicen.educservice.educservice;
+package br.ufpb.dcx.prolicen.educservice.model;
 
 import java.util.LinkedList;
 import java.util.List;

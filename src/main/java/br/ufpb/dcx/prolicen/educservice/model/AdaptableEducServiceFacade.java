@@ -1,14 +1,10 @@
-package br.ufpb.dcx.prolicen.educservice.adaptable.impl;
+package br.ufpb.dcx.prolicen.educservice.model;
 
 import java.util.List;
 
-import br.ufpb.dcx.prolicen.educservice.educservice.Aluno;
-import br.ufpb.dcx.prolicen.educservice.educservice.EducServiceFacade;
-import br.ufpb.dcx.prolicen.educservice.educservice.Exercicio;
-import br.ufpb.dcx.prolicen.educservice.educservice.Questao;
-import br.ufpb.dcx.prolicen.educservice.educservice.QuestaoDissertativa;
-import br.ufpb.dcx.prolicen.educservice.educservice.QuestaoMultiplaEscolha;
-import br.ufpb.dcx.prolicen.educservice.educservice.QuestaoVouF;
+import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableAlunoDAO;
+import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableExercicioDAO;
+import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableQuestaoMultiplaEscolhaDAO;
 
 import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.business.FacadeFactory;
@@ -59,7 +55,8 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+ 
+	// Exercício
 	public Exercicio criarExercicio() {
 		return this.exercicioDAO.criarExercicio();
 	}

@@ -1,9 +1,9 @@
-package br.ufpb.dcx.prolicen.educservice.adaptable.impl;
+package br.ufpb.dcx.prolicen.educservice.adaptable.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufpb.dcx.prolicen.educservice.educservice.QuestaoMultiplaEscolha;
+import br.ufpb.dcx.prolicen.educservice.model.QuestaoMultiplaEscolha;
 
 import com.nanuvem.lom.api.Entity;
 import com.nanuvem.lom.api.EntityType;
@@ -164,7 +164,8 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AdaptableDAO {
 				questaoMEEntity);
 		properties.add(alternativaEProperty);
 
-		return this.converterEmUmaQuestaoME(lomFacade.create(questaoMEEntity));
+		Entity createdEntity = lomFacade.create(questaoMEEntity);
+		return this.converterEmUmaQuestaoME(createdEntity);
 	}
 
 	public QuestaoMultiplaEscolha pesquisarQuestaoMEPorId(String idQuestao) {

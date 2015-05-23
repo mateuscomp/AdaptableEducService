@@ -1,4 +1,4 @@
-package br.ufpb.dcx.prolicen.educservice.educservice;
+package br.ufpb.dcx.prolicen.educservice.model;
 
 public class Aluno {
 

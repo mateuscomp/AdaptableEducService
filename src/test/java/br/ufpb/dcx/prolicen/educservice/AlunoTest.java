@@ -1,4 +1,4 @@
-package br.ufpb.dcx.prolicen.educservice.educservice;
+package br.ufpb.dcx.prolicen.educservice;
 
 import junit.framework.Assert;
 
@@ -6,7 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.ufpb.dcx.prolicen.educservice.adaptable.impl.AdaptableEducServiceFacade;
+import br.ufpb.dcx.prolicen.educservice.model.AdaptableEducServiceFacade;
+import br.ufpb.dcx.prolicen.educservice.model.Aluno;
+import br.ufpb.dcx.prolicen.educservice.model.EducServiceFacade;
 
 public class AlunoTest {
 
@@ -20,7 +22,7 @@ public class AlunoTest {
 	}
 
 	@Test
-	public void cadastrarUmAlunoValido() {
+	public void cadastrarAlunoValido() {
 		verificarCriacaoDeUmAlunoValido("Fernando de Oliveira",
 				"fernando.mateus@dce.ufpb.br", "mySecrectKey");
 		verificarCriacaoDeUmAlunoValido("Ayla Rebouças", "ayla@dce.ufpb.br",

@@ -1,9 +1,9 @@
-package br.ufpb.dcx.prolicen.educservice.adaptable.impl;
+package br.ufpb.dcx.prolicen.educservice.adaptable.dao;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import br.ufpb.dcx.prolicen.educservice.educservice.Aluno;
+import br.ufpb.dcx.prolicen.educservice.model.Aluno;
 
 import com.nanuvem.lom.api.Entity;
 import com.nanuvem.lom.api.EntityType;
@@ -22,7 +22,7 @@ public class AdaptableAlunoDAO extends AdaptableDAO {
 	private PropertyType loginPT;
 	private PropertyType senhaPT;
 
-	protected AdaptableAlunoDAO(Facade facade) {
+	public AdaptableAlunoDAO(Facade facade) {
 		super(facade);
 	}
 
@@ -32,8 +32,8 @@ public class AdaptableAlunoDAO extends AdaptableDAO {
 
 		List<Property> properties = new LinkedList<Property>();
 
-		Property idProperty = newProperty(idPT, criarIdAutoIncrementavel(),
-				alunoEntity);
+		Property idProperty = newProperty(idPT,
+				criarIdAutoIncrementavel(alunoET, "id"), alunoEntity);
 		properties.add(idProperty);
 
 		Property nomeProperty = newProperty(nomePT, nome, alunoEntity);
@@ -48,26 +48,6 @@ public class AdaptableAlunoDAO extends AdaptableDAO {
 		alunoEntity.setProperties(properties);
 
 		return this.converterEmAluno(this.lomFacade.create(alunoEntity));
-	}
-
-	private String criarIdAutoIncrementavel() {
-		List<Entity> entities = lomFacade.findEntitiesByEntityTypeId(alunoET
-				.getId());
-
-		Long maxIdLong = 0L;
-		for (Entity e : entities) {
-			for (Property p : e.getProperties()) {
-				if (p.getPropertyType().getName().equals("id")) {
-					Long idDaProperty = Long.parseLong(p.getValue());
-
-					if (idDaProperty > maxIdLong) {
-						maxIdLong = idDaProperty;
-					}
-				}
-			}
-		}
-		maxIdLong = maxIdLong + 1;
-		return maxIdLong.toString();
 	}
 
 	public Aluno pesquisarAluno(String id) {
