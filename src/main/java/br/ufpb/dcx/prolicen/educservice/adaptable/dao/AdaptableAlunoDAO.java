@@ -11,7 +11,7 @@ import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.api.Property;
 import com.nanuvem.lom.api.PropertyType;
 
-public class AdaptableAlunoDAO extends AdaptableDAO {
+public class AdaptableAlunoDAO extends AbstractAdaptableDAO {
 
 	private static final String FULLNAME_ALUNO = "br.ufpb.educservice.Aluno";
 

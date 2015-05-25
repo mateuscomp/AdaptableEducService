@@ -8,11 +8,11 @@ import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.api.Property;
 import com.nanuvem.lom.api.PropertyType;
 
-public abstract class AdaptableDAO {
+public abstract class AbstractAdaptableDAO {
 
 	protected Facade lomFacade;
 
-	protected AdaptableDAO(Facade facade) {
+	protected AbstractAdaptableDAO(Facade facade) {
 		this.lomFacade = facade;
 		this.construirEntitiesTypesEPropertiesTypes();
 	}

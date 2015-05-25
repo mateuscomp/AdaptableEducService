@@ -5,6 +5,7 @@ import java.util.List;
 import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableAlunoDAO;
 import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableExercicioDAO;
 import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableQuestaoMultiplaEscolhaDAO;
+import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableRespostaDAO;
 
 import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.business.FacadeFactory;
@@ -15,14 +16,16 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 	private AdaptableQuestaoMultiplaEscolhaDAO questaoMultiplaEscolhaDAO;
 	private AdaptableExercicioDAO exercicioDAO;
 	private AdaptableAlunoDAO alunoDAO;
+	private AdaptableRespostaDAO respostaDAO;
 
 	public AdaptableEducServiceFacade() {
 		this.lomFacade = new FacadeFactory().createFacade();
 
-		this.alunoDAO = new AdaptableAlunoDAO(lomFacade);
 		this.questaoMultiplaEscolhaDAO = new AdaptableQuestaoMultiplaEscolhaDAO(
 				lomFacade);
+		this.alunoDAO = new AdaptableAlunoDAO(lomFacade);
 		this.exercicioDAO = new AdaptableExercicioDAO(lomFacade);
+		this.respostaDAO = new AdaptableRespostaDAO(lomFacade);
 	}
 
 	// Aluno
@@ -38,24 +41,6 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 		this.alunoDAO.removerAluno(idAluno);
 	}
 
-	public void cadastraRespostaVFDeAluno(String idAluno, String idExercicio,
-			String idQuestao, List<String> respostas) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void cadastrarRespostaQuestaoDissertativaPorId(String idAluno,
-			String idExercicio, String idQuestao, String solucao) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public Questao consultaRespostaDeAluno(String idAluno, String idExercicio,
-			String idQuestao) {
-		// TODO Auto-generated method stub
-		return null;
-	}
- 
 	// Exercício
 	public Exercicio criarExercicio() {
 		return this.exercicioDAO.criarExercicio();
@@ -65,24 +50,8 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 		return this.exercicioDAO.criarExercicio(palavrasChave);
 	}
 
-	public void configuraPalavrasChave(String idExercicio) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void apagar(String idExercicio) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void atualizar(Exercicio e) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public Exercicio pesquisarExercicioPorId(String idExercicio) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.exercicioDAO.pesquisarExercicioPorId(idExercicio);
 	}
 
 	// QUESTÔES DE MULTIPLA ESCOLHA
@@ -107,19 +76,46 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 				.pesquisarQuestaoMEPorId(idQuestao);
 	}
 
-	public QuestaoMultiplaEscolha cadastrarRespostaQuestaoMEPorId(
-			String idExercicio, int alternativaCorreta) {
+	public void cadastrarRespostaQuestaoMEPorId(String idAluno,
+			String idExercicio, String idQuestao, int alternativaCorreta) {
+
+		this.respostaDAO.cadastrarRespostaQuestaoMEPorId(idAluno, idExercicio,
+				idQuestao, alternativaCorreta);
+	}
+
+	public void cadastraRespostaVFDeAluno(String idAluno, String idExercicio,
+			String idQuestao, List<String> respostas) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void cadastrarRespostaQuestaoDissertativaPorId(String idAluno,
+			String idExercicio, String idQuestao, String solucao) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public Questao consultaRespostaDeAluno(String idAluno, String idExercicio,
+			String idQuestao) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void cadastrarRespostaQuestaoMEPorId(String idAluno,
-			String idExercicio, String idQuestao, int alternativaCorreta) {
+	public void configuraPalavrasChave(String idExercicio) {
 		// TODO Auto-generated method stub
 
 	}
 
-	// QUESTÂO VF
+	public void apagar(String idExercicio) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void atualizar(Exercicio e) {
+		// TODO Auto-generated method stub
+
+	}
+
 	public QuestaoVouF cadastrarQuestaoVouF(String idExercicio,
 			List<String> afirmativas) {
 		// TODO Auto-generated method stub
@@ -145,6 +141,12 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 
 	public QuestaoDissertativa pesquisarQuestaoDissertativaPorId(
 			String idExercicio, String idQuestao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public QuestaoMultiplaEscolha cadastrarRespostaQuestaoMEPorId(
+			String idExercicio, int alternativaCorreta) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -182,4 +184,5 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

@@ -11,7 +11,7 @@ import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.api.Property;
 import com.nanuvem.lom.api.PropertyType;
 
-public class AdaptableQuestaoMultiplaEscolhaDAO extends AdaptableDAO {
+public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 
 	private static final int INDICE_ID = 0;
 	private static final int INDICE_ENUNCIADO = 2;

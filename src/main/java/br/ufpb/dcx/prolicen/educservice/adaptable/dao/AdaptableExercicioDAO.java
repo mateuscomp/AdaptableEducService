@@ -11,9 +11,9 @@ import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.api.Property;
 import com.nanuvem.lom.api.PropertyType;
 
-public class AdaptableExercicioDAO extends AdaptableDAO {
+public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 
-	private static final String FULLNAME_QUESTAO_MULTIPLA_ESCOLHA = "br.ufpb.educservice.Exercicio";
+	private static final String FULLNAME_EXERCICIO = "br.ufpb.educservice.Exercicio";
 
 	private static final String ID_PROPERTY_TYPE_NAME = "id";
 	private static final String PALAVRA_CHAVE_01 = "palavraChave01";
@@ -75,7 +75,7 @@ public class AdaptableExercicioDAO extends AdaptableDAO {
 		}
 
 		if (palavrasChave != null && palavrasChave.get(4) != null) {
-			Property palavraChave05Property = newProperty(palavraChave04PT,
+			Property palavraChave05Property = newProperty(palavraChave05PT,
 					palavrasChave.get(4), exercicioEntity);
 			properties.add(palavraChave05Property);
 		}
@@ -103,29 +103,41 @@ public class AdaptableExercicioDAO extends AdaptableDAO {
 	@Override
 	protected void construirEntitiesTypesEPropertiesTypes() {
 		exercicioET = this.lomFacade
-				.findEntityTypeByFullName(FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+				.findEntityTypeByFullName(FULLNAME_EXERCICIO);
 
 		idPT = this.lomFacade.findPropertyTypeByNameAndFullnameEntityType(
-				ID_PROPERTY_TYPE_NAME, FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+				ID_PROPERTY_TYPE_NAME, FULLNAME_EXERCICIO);
 
 		palavraChave01PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_01,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						FULLNAME_EXERCICIO);
 
 		palavraChave02PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_02,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						FULLNAME_EXERCICIO);
 
 		palavraChave03PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_03,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						FULLNAME_EXERCICIO);
 
 		palavraChave04PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_04,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						FULLNAME_EXERCICIO);
 
 		palavraChave05PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_05,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						FULLNAME_EXERCICIO);
+	}
+
+	public Exercicio pesquisarExercicioPorId(String idExercicio) {
+		List<Entity> exerciciosEntity = this.lomFacade
+				.findEntitiesByEntityTypeId(this.exercicioET.getId());
+
+		for (Entity entity : exerciciosEntity) {
+			if (idExercicio.equals(entity.getProperties().get(0).getValue())) {
+				return converterEmExercicio(entity);
+			}
+		}
+		return null;
 	}
 }

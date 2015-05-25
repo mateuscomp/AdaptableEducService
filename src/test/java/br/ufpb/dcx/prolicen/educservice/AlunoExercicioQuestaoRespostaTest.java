@@ -12,7 +12,7 @@ import br.ufpb.dcx.prolicen.educservice.model.EducServiceFacade;
 import br.ufpb.dcx.prolicen.educservice.model.Exercicio;
 import br.ufpb.dcx.prolicen.educservice.model.Questao;
 
-public class AlunoExercicioEQuestaoTest {
+public class AlunoExercicioQuestaoRespostaTest {
 
 	private EducServiceFacade facade;
 
@@ -27,11 +27,14 @@ public class AlunoExercicioEQuestaoTest {
 				"fernando.mateus@dce.ufpb.br", "secretKey");
 
 		List<String> palavrasChave = new LinkedList<String>();
-		palavrasChave.add("poscomp");
-		palavrasChave.add("2014");
-		
+		palavrasChave.add("poscomp2014");
+		palavrasChave.add("estruturaDeDados");
+		palavrasChave.add("grafo");
+		palavrasChave.add("vértice");
+		palavrasChave.add("aresta");
+
 		Exercicio exercicio = this.facade.criarExercicio(palavrasChave);
-		
+
 		String enunciado = "(POSCOMP 2014) Considerando que um grafo possui n vértices e m arestas, "
 				+ "assinale a alternativa que apresenta, corretamente, um grafo planar.";
 		List<String> alternativas = new LinkedList<String>();
@@ -40,7 +43,13 @@ public class AlunoExercicioEQuestaoTest {
 		alternativas.add("n = 7, m = 21");
 		alternativas.add("n = 8, m = 12");
 		alternativas.add("n = 9, m = 22");
-		
-		Questao questaoMultiplaEscolha = this.facade.cadastrarQuestaoME(exercicio.getId(), enunciado, alternativas);
+
+		int alternativaCorreta = 4;
+		Questao questaoMultiplaEscolha = this.facade.cadastrarQuestaoME(
+				exercicio.getId(), enunciado, alternativas, alternativaCorreta);
+
+		this.facade.cadastrarRespostaQuestaoMEPorId(aluno.getId(),
+				exercicio.getId(), questaoMultiplaEscolha.getId(),
+				alternativaCorreta);
 	}
 }
