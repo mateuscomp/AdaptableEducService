@@ -43,6 +43,7 @@ public class ExericioTest {
 		palavrasChave.add(lcc);
 
 		Exercicio e = facade.criarExercicio(palavrasChave);
+		
 		Assert.assertNotNull(e.getId());
 		Assert.assertEquals(extendsHeranca, e.getPalavrasChave().get(0));
 		Assert.assertEquals(heranca, e.getPalavrasChave().get(1));

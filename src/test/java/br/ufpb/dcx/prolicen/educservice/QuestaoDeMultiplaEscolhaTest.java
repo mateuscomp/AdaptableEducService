@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import br.ufpb.dcx.prolicen.educservice.model.AdaptableEducServiceFacade;
 import br.ufpb.dcx.prolicen.educservice.model.EducServiceFacade;
+import br.ufpb.dcx.prolicen.educservice.model.Exercicio;
 import br.ufpb.dcx.prolicen.educservice.model.QuestaoMultiplaEscolha;
 
 public class QuestaoDeMultiplaEscolhaTest {
@@ -37,14 +38,15 @@ public class QuestaoDeMultiplaEscolhaTest {
 		alternativas.add("09000");
 		alternativas.add("10000");
 
-		String idExercicio = "1";
+		Exercicio exercicio = this.facade.criarExercicio();
 		int indiceDaQuestaoCorretaNaLista = 1;
 
 		QuestaoMultiplaEscolha qME = this.facade.cadastrarQuestaoME(
-				idExercicio, enunciado, alternativas,
+				exercicio.getId(), enunciado, alternativas,
 				indiceDaQuestaoCorretaNaLista);
+
 		QuestaoMultiplaEscolha qMEPesquisada = this.facade
-				.pesquisarQuestaoMEPorId(idExercicio,
+				.pesquisarQuestaoMEPorId(exercicio.getId(),
 						String.valueOf(qME.getId()));
 
 		Assert.assertEquals(qME.getEnunciado(), qMEPesquisada.getEnunciado());

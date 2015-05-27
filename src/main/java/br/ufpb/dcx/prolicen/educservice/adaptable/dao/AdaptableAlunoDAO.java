@@ -17,7 +17,6 @@ public class AdaptableAlunoDAO extends AbstractAdaptableDAO {
 
 	private EntityType alunoET;
 
-	private PropertyType idPT;
 	private PropertyType nomePT;
 	private PropertyType loginPT;
 	private PropertyType senhaPT;
@@ -31,10 +30,6 @@ public class AdaptableAlunoDAO extends AbstractAdaptableDAO {
 		alunoEntity.setEntityType(this.alunoET);
 
 		List<Property> properties = new LinkedList<Property>();
-
-		Property idProperty = newProperty(idPT,
-				criarIdAutoIncrementavel(alunoET, "id"), alunoEntity);
-		properties.add(idProperty);
 
 		Property nomeProperty = newProperty(nomePT, nome, alunoEntity);
 		properties.add(nomeProperty);
@@ -51,19 +46,8 @@ public class AdaptableAlunoDAO extends AbstractAdaptableDAO {
 	}
 
 	public Aluno pesquisarAluno(String id) {
-		List<Entity> alunosEntity = this.lomFacade
-				.findEntitiesByEntityTypeId(this.alunoET.getId());
-
-		for (Entity entity : alunosEntity) {
-			if (entity.getProperties().get(0).getValue().equals(id)) {
-				return converterEmAluno(entity);
-			}
-		}
-		return null;
-	}
-
-	public void removerAluno(String idAluno) {
-		// TODO;
+		Long idLong = Long.parseLong(id);
+		return converterEmAluno(this.lomFacade.findEntityById(idLong));
 	}
 
 	@Override
@@ -71,20 +55,20 @@ public class AdaptableAlunoDAO extends AbstractAdaptableDAO {
 		this.alunoET = this.lomFacade.findEntityTypeByFullName(FULLNAME_ALUNO);
 
 		List<PropertyType> propertiesTypes = alunoET.getPropertiesTypes();
-		this.idPT = propertiesTypes.get(0);
-		this.nomePT = propertiesTypes.get(1);
-		this.loginPT = propertiesTypes.get(2);
-		this.senhaPT = propertiesTypes.get(3);
+		this.nomePT = propertiesTypes.get(0);
+		this.loginPT = propertiesTypes.get(1);
+		this.senhaPT = propertiesTypes.get(2);
 	}
 
 	private Aluno converterEmAluno(Entity alunoEntity) {
 		List<Property> properties = alunoEntity.getProperties();
 
 		Aluno aluno = new Aluno();
-		aluno.setId(properties.get(0).getValue());
-		aluno.setNome(properties.get(1).getValue());
-		aluno.setLogin(properties.get(2).getValue());
-		aluno.setSenha(properties.get(3).getValue());
+		aluno.setId(String.valueOf(alunoEntity.getId()));
+		aluno.setNome(properties.get(0).getValue());
+		aluno.setLogin(properties.get(1).getValue());
+		aluno.setSenha(properties.get(2).getValue());
+
 		return aluno;
 	}
 }

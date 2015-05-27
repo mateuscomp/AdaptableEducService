@@ -13,18 +13,16 @@ import com.nanuvem.lom.api.PropertyType;
 
 public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 
-	private static final int INDICE_ID = 0;
-	private static final int INDICE_ENUNCIADO = 2;
-	private static final int INDICE_ALTERNATIVA_CORRETA = 3;
-	private static final int INDICE_ALTERNATIVA_A = 4;
-	private static final int INDICE_ALTERNATIVA_B = 5;
-	private static final int INDICE_ALTERNATIVA_C = 6;
-	private static final int INDICE_ALTERNATIVA_D = 7;
-	private static final int INDICE_ALTERNATIVA_E = 8;
+	private static final int INDICE_ENUNCIADO = 1;
+	private static final int INDICE_ALTERNATIVA_CORRETA = 2;
+	// private static final int INDICE_ALTERNATIVA_A = 2;
+	// private static final int INDICE_ALTERNATIVA_B = 3;
+	// private static final int INDICE_ALTERNATIVA_C = 4;
+	// private static final int INDICE_ALTERNATIVA_D = 5;
+	// private static final int INDICE_ALTERNATIVA_E = 6;
 
 	private static final String FULLNAME_QUESTAO_MULTIPLA_ESCOLHA = "br.ufpb.educservice.QuestaoMultiplaEscolha";
 
-	private static final String ID_PROPERTY_TYPE_NAME = "id";
 	private static final String ENUNCIADO_PROPERTY_TYPE_NAME = "enunciado";
 	private static final String ALTERNATIVA_CORRETA_PROPERTY_TYPE_NAME = "alternativaCorreta";
 	private static final String ALTERNATIVA_A_PROPERTY_TYPE_NAME = "alternativaA";
@@ -44,7 +42,6 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 	private PropertyType alternativaDPT;
 	private PropertyType alternativaEPT;
 	private PropertyType idExercicioPT;
-	private PropertyType idPT;
 
 	public AdaptableQuestaoMultiplaEscolhaDAO(Facade lomFacade) {
 		super(lomFacade);
@@ -54,9 +51,6 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 	protected void construirEntitiesTypesEPropertiesTypes() {
 		questaoMultilplaEscolhaET = this.lomFacade
 				.findEntityTypeByFullName(FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
-
-		idPT = this.lomFacade.findPropertyTypeByNameAndFullnameEntityType(
-				ID_PROPERTY_TYPE_NAME, FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
 
 		enunciadoPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
@@ -109,10 +103,6 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 		List<Property> properties = new ArrayList<Property>();
 		questaoMEEntity.setProperties(properties);
 
-		// Atribuindo valor para o ID
-		Property idProperty = newProperty(idPT, idExercicio, questaoMEEntity);
-		properties.add(idProperty);
-
 		// Atribuindo valor para o ID do EXERCICIO
 		Property idExercicioProperty = newProperty(idExercicioPT, idExercicio,
 				questaoMEEntity);
@@ -164,30 +154,22 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 				questaoMEEntity);
 		properties.add(alternativaEProperty);
 
+		questaoMEEntity.setProperties(properties);
 		Entity createdEntity = lomFacade.create(questaoMEEntity);
 		return this.converterEmUmaQuestaoME(createdEntity);
 	}
 
 	public QuestaoMultiplaEscolha pesquisarQuestaoMEPorId(String idQuestao) {
-		List<Entity> entities = lomFacade
-				.findEntitiesByEntityTypeId(questaoMultilplaEscolhaET.getId());
-
-		for (Entity e : entities) {
-			String id = e.getProperties().get(INDICE_ID).getValue();
-
-			if (idQuestao.equals(id)) {
-				return converterEmUmaQuestaoME(e);
-			}
-		}
-		return null;
+		return converterEmUmaQuestaoME(this.lomFacade.findEntityById(Long
+				.parseLong(idQuestao)));
 	}
 
 	private QuestaoMultiplaEscolha converterEmUmaQuestaoME(Entity entity) {
 		List<Property> properties = entity.getProperties();
-
-		String id = properties.get(INDICE_ID).getValue();
-
-		// int idDoExercicio = Integer.parseInt(properties.get(1).getValue());
+		// for(Property p : properties){
+		// System.out.println("Nome: " + p.getPropertyType().getName() +
+		// "\t Valor: " + p.getValue());
+		// }
 
 		String enunciado = properties.get(INDICE_ENUNCIADO).getValue();
 		int alternativaCorreta = Integer.parseInt(properties.get(
@@ -195,22 +177,23 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 
 		List<String> alternativas = new ArrayList<String>();
 
-		String alternativaA = properties.get(INDICE_ALTERNATIVA_A).getValue();
-		alternativas.add(alternativaA);
+		for (Property p : properties) {
+			String name = p.getPropertyType().getName();
 
-		String alternativaB = properties.get(INDICE_ALTERNATIVA_B).getValue();
-		alternativas.add(alternativaB);
+			boolean ehUmaAlternativa = ALTERNATIVA_A_PROPERTY_TYPE_NAME
+					.equals(name)
+					|| ALTERNATIVA_B_PROPERTY_TYPE_NAME.equals(name)
+					|| ALTERNATIVA_C_PROPERTY_TYPE_NAME.equals(name)
+					|| ALTERNATIVA_D_PROPERTY_TYPE_NAME.equals(name)
+					|| ALTERNATIVA_D_PROPERTY_TYPE_NAME.equals(name)
+					|| ALTERNATIVA_E_PROPERTY_TYPE_NAME.equals(name);
 
-		String alternativaC = properties.get(INDICE_ALTERNATIVA_C).getValue();
-		alternativas.add(alternativaC);
+			if (ehUmaAlternativa) {
+				alternativas.add(p.getValue());
+			}
+		}
 
-		String alternativaD = properties.get(INDICE_ALTERNATIVA_D).getValue();
-		alternativas.add(alternativaD);
-
-		String alternativaE = properties.get(INDICE_ALTERNATIVA_E).getValue();
-		alternativas.add(alternativaE);
-
-		return new QuestaoMultiplaEscolha(id, enunciado, alternativas,
-				alternativaCorreta);
+		return new QuestaoMultiplaEscolha(String.valueOf(entity.getId()),
+				enunciado, alternativas, alternativaCorreta);
 	}
 }

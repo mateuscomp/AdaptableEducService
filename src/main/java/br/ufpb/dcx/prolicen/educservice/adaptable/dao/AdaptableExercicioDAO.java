@@ -15,7 +15,6 @@ public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 
 	private static final String FULLNAME_EXERCICIO = "br.ufpb.educservice.Exercicio";
 
-	private static final String ID_PROPERTY_TYPE_NAME = "id";
 	private static final String PALAVRA_CHAVE_01 = "palavraChave01";
 	private static final String PALAVRA_CHAVE_02 = "palavraChave02";
 	private static final String PALAVRA_CHAVE_03 = "palavraChave03";
@@ -24,7 +23,6 @@ public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 
 	private EntityType exercicioET;
 
-	private PropertyType idPT;
 	private PropertyType palavraChave01PT;
 	private PropertyType palavraChave02PT;
 	private PropertyType palavraChave03PT;
@@ -45,11 +43,6 @@ public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 		exercicioEntity.setEntityType(this.exercicioET);
 
 		List<Property> properties = new ArrayList<Property>();
-		Property idProperty = newProperty(idPT,
-				criarIdAutoIncrementavel(exercicioET, ID_PROPERTY_TYPE_NAME),
-				exercicioEntity);
-		properties.add(idProperty);
-
 		if (palavrasChave != null && palavrasChave.get(0) != null) {
 			Property palavraChave01Property = newProperty(palavraChave01PT,
 					palavrasChave.get(0), exercicioEntity);
@@ -87,7 +80,9 @@ public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 	private Exercicio converterEmExercicio(Entity exercicioEntity) {
 		List<Property> properties = exercicioEntity.getProperties();
 
-		String idExercicio = properties.remove(0).getValue();
+		String idExercicio = String.valueOf(exercicioEntity.getId());
+		idExercicio = String.valueOf(exercicioEntity.getId());
+
 		List<String> palavrasChave = new ArrayList<String>();
 
 		for (Property palavraChaveProperty : properties) {
@@ -104,9 +99,6 @@ public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 	protected void construirEntitiesTypesEPropertiesTypes() {
 		exercicioET = this.lomFacade
 				.findEntityTypeByFullName(FULLNAME_EXERCICIO);
-
-		idPT = this.lomFacade.findPropertyTypeByNameAndFullnameEntityType(
-				ID_PROPERTY_TYPE_NAME, FULLNAME_EXERCICIO);
 
 		palavraChave01PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_01,
@@ -130,14 +122,7 @@ public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 	}
 
 	public Exercicio pesquisarExercicioPorId(String idExercicio) {
-		List<Entity> exerciciosEntity = this.lomFacade
-				.findEntitiesByEntityTypeId(this.exercicioET.getId());
-
-		for (Entity entity : exerciciosEntity) {
-			if (idExercicio.equals(entity.getProperties().get(0).getValue())) {
-				return converterEmExercicio(entity);
-			}
-		}
-		return null;
+		return converterEmExercicio(this.lomFacade.findEntityById(Long
+				.parseLong(idExercicio)));
 	}
 }

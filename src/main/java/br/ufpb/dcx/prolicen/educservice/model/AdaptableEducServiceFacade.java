@@ -38,7 +38,7 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 	}
 
 	public void removerAluno(String idAluno) {
-		this.alunoDAO.removerAluno(idAluno);
+		// TODO;
 	}
 
 	// Exercício
