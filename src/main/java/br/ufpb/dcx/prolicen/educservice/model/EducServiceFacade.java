@@ -4,10 +4,8 @@ import java.util.List;
 
 public interface EducServiceFacade {
 
-	// Aluno - Implementar apenas as questões de multipla escolha
-
 	public Aluno criarAluno(String nome, String login, String senha);
-	
+
 	public Aluno pesquisarAluno(String id);
 
 	public void cadastraRespostaVFDeAluno(String idAluno, String idExercicio,

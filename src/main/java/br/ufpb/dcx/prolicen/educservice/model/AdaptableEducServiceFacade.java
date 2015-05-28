@@ -2,10 +2,10 @@ package br.ufpb.dcx.prolicen.educservice.model;
 
 import java.util.List;
 
-import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableAlunoDAO;
-import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableExercicioDAO;
-import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableQuestaoMultiplaEscolhaDAO;
-import br.ufpb.dcx.prolicen.educservice.adaptable.dao.AdaptableRespostaDAO;
+import br.ufpb.dcx.prolicen.educservice.dao.AdaptableAlunoDAO;
+import br.ufpb.dcx.prolicen.educservice.dao.AdaptableExercicioDAO;
+import br.ufpb.dcx.prolicen.educservice.dao.AdaptableQuestaoMultiplaEscolhaDAO;
+import br.ufpb.dcx.prolicen.educservice.dao.AdaptableRespostaDAO;
 
 import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.business.FacadeFactory;
@@ -97,8 +97,7 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 
 	public Questao consultaRespostaDeAluno(String idAluno, String idExercicio,
 			String idQuestao) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.respostaDAO.pesquisarRespostaDeAlunoEmUmaQuestao(idAluno, idExercicio, idQuestao);
 	}
 
 	public void configuraPalavrasChave(String idExercicio) {

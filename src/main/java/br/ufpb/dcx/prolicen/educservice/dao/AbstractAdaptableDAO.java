@@ -1,4 +1,4 @@
-package br.ufpb.dcx.prolicen.educservice.adaptable.dao;
+package br.ufpb.dcx.prolicen.educservice.dao;
 
 import com.nanuvem.lom.api.Entity;
 import com.nanuvem.lom.api.Facade;

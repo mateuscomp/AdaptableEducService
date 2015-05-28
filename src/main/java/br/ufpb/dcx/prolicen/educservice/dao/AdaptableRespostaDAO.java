@@ -1,7 +1,13 @@
-package br.ufpb.dcx.prolicen.educservice.adaptable.dao;
+package br.ufpb.dcx.prolicen.educservice.dao;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.Conversion;
+
+import br.ufpb.dcx.prolicen.educservice.model.Questao;
 
 import com.nanuvem.lom.api.Entity;
 import com.nanuvem.lom.api.EntityType;
@@ -68,10 +74,37 @@ public class AdaptableRespostaDAO extends AbstractAdaptableDAO {
 		Property alternativaCorretaProperty = newProperty(alternativaCorretaPT,
 				String.valueOf(alternativaCorreta), respostaEntity);
 		properties.add(alternativaCorretaProperty);
-		
+
 		respostaEntity.setProperties(properties);
 		this.lomFacade.create(respostaEntity);
 
 	}
 
+	public Questao pesquisarRespostaDeAlunoEmUmaQuestao(String idAluno,
+			String idExercicio, String idQuestao) {
+
+		Map<String, String> nomeDosPropertiesTypesEValoresDeUmaResposta = new HashMap<String, String>();
+		nomeDosPropertiesTypesEValoresDeUmaResposta.put(idAlunoPT.getName(),
+				idAluno);
+		nomeDosPropertiesTypesEValoresDeUmaResposta.put(
+				idExercicioPT.getName(), idExercicio);
+		nomeDosPropertiesTypesEValoresDeUmaResposta.put(idQuestaoPT.getName(),
+				idQuestao);
+
+		List<Entity> respostasEntity = this.lomFacade
+				.findEntityByEntityTypeFullnameAndPropertiesTypesNameAndValue(
+						FULLNAME_RESPOSTA_ENTITY,
+						nomeDosPropertiesTypesEValoresDeUmaResposta);
+
+		if (respostasEntity != null && respostasEntity.size() > 0) {
+			return converterEmResposta(respostasEntity.get(0));
+		}
+
+		return null;
+	}
+
+	private Questao converterEmResposta(Entity entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

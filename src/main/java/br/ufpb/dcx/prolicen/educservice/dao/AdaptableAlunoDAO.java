@@ -1,4 +1,4 @@
-package br.ufpb.dcx.prolicen.educservice.adaptable.dao;
+package br.ufpb.dcx.prolicen.educservice.dao;
 
 import java.util.LinkedList;
 import java.util.List;
