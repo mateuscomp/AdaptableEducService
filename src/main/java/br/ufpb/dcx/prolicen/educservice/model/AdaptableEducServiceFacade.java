@@ -4,28 +4,36 @@ import java.util.List;
 
 import br.ufpb.dcx.prolicen.educservice.dao.AdaptableAlunoDAO;
 import br.ufpb.dcx.prolicen.educservice.dao.AdaptableExercicioDAO;
+import br.ufpb.dcx.prolicen.educservice.dao.AdaptableGenericDAO;
 import br.ufpb.dcx.prolicen.educservice.dao.AdaptableQuestaoMultiplaEscolhaDAO;
 import br.ufpb.dcx.prolicen.educservice.dao.AdaptableRespostaDAO;
 
 import com.nanuvem.lom.api.Facade;
-import com.nanuvem.lom.business.FacadeFactory;
+import com.nanuvem.lom.api.dao.DaoFactory;
+import com.nanuvem.lom.business.BusinessFacade;
 
 public class AdaptableEducServiceFacade implements EducServiceFacade {
 
 	private Facade lomFacade;
+
 	private AdaptableQuestaoMultiplaEscolhaDAO questaoMultiplaEscolhaDAO;
 	private AdaptableExercicioDAO exercicioDAO;
 	private AdaptableAlunoDAO alunoDAO;
 	private AdaptableRespostaDAO respostaDAO;
 
-	public AdaptableEducServiceFacade() {
-		this.lomFacade = new FacadeFactory().createFacade();
+	public AdaptableEducServiceFacade(Facade facade) {
+		this.lomFacade = facade;
 
 		this.questaoMultiplaEscolhaDAO = new AdaptableQuestaoMultiplaEscolhaDAO(
 				lomFacade);
 		this.alunoDAO = new AdaptableAlunoDAO(lomFacade);
 		this.exercicioDAO = new AdaptableExercicioDAO(lomFacade);
 		this.respostaDAO = new AdaptableRespostaDAO(lomFacade);
+
+	}
+
+	public AdaptableEducServiceFacade(DaoFactory daoFactory) {
+		this(new BusinessFacade(daoFactory));
 	}
 
 	// Aluno
@@ -97,7 +105,8 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 
 	public Questao consultaRespostaDeAluno(String idAluno, String idExercicio,
 			String idQuestao) {
-		return this.respostaDAO.pesquisarRespostaDeAlunoEmUmaQuestao(idAluno, idExercicio, idQuestao);
+		return this.respostaDAO.pesquisarRespostaDeAlunoEmUmaQuestao(idAluno,
+				idExercicio, idQuestao);
 	}
 
 	public void configuraPalavrasChave(String idExercicio) {
@@ -184,4 +193,8 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 		return null;
 	}
 
+	public static void createEducServiceSchema(Facade facade) {
+		AdaptableGenericDAO genericDAO = new AdaptableGenericDAO(facade);
+		genericDAO.criarEducServiceSchema();
+	}
 }

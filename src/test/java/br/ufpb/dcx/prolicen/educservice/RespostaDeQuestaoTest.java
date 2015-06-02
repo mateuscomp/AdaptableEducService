@@ -1,26 +1,16 @@
 package br.ufpb.dcx.prolicen.educservice;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import br.ufpb.dcx.prolicen.educservice.helper.AlunoHelper;
 import br.ufpb.dcx.prolicen.educservice.helper.ExercicioHelper;
 import br.ufpb.dcx.prolicen.educservice.helper.QuestaoMultiplaEscolhaHelper;
 import br.ufpb.dcx.prolicen.educservice.helper.RespostaDeQuestaoHelper;
-import br.ufpb.dcx.prolicen.educservice.model.AdaptableEducServiceFacade;
 import br.ufpb.dcx.prolicen.educservice.model.Aluno;
-import br.ufpb.dcx.prolicen.educservice.model.EducServiceFacade;
 import br.ufpb.dcx.prolicen.educservice.model.Exercicio;
 import br.ufpb.dcx.prolicen.educservice.model.Questao;
 
-public class RespostaDeQuestaoTest {
-
-	private EducServiceFacade facade;
-
-	@Before
-	public void init() {
-		facade = new AdaptableEducServiceFacade();
-	}
+public class RespostaDeQuestaoTest extends AdaptableEducServiceTest {
 
 	@Test
 	public void simulaIntegracaoEntreEntidades() {

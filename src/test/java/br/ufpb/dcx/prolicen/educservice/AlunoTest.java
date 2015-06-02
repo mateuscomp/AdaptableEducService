@@ -1,20 +1,10 @@
 package br.ufpb.dcx.prolicen.educservice;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import br.ufpb.dcx.prolicen.educservice.helper.AlunoHelper;
-import br.ufpb.dcx.prolicen.educservice.model.AdaptableEducServiceFacade;
-import br.ufpb.dcx.prolicen.educservice.model.EducServiceFacade;
 
-public class AlunoTest {
-
-	private EducServiceFacade facade;
-
-	@Before
-	public void init() {
-		facade = new AdaptableEducServiceFacade();
-	}
+public class AlunoTest extends AdaptableEducServiceTest {
 
 	@Test
 	public void cadastrarEVerificarAlunosValidos() {

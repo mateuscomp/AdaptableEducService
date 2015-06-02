@@ -13,13 +13,14 @@ import com.nanuvem.lom.api.PropertyType;
 
 public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 
-	private static final String FULLNAME_EXERCICIO = "br.ufpb.educservice.Exercicio";
+	public static final String NAMESPACE_EXERCICIO_ENTITY_TYPE = "br.ufpb.educservice";
+	public static final String NAME_EXERCICIO_ENTITY_TYPE = "Exercicio";
 
-	private static final String PALAVRA_CHAVE_01 = "palavraChave01";
-	private static final String PALAVRA_CHAVE_02 = "palavraChave02";
-	private static final String PALAVRA_CHAVE_03 = "palavraChave03";
-	private static final String PALAVRA_CHAVE_04 = "palavraChave04";
-	private static final String PALAVRA_CHAVE_05 = "palavraChave05";
+	public static final String PALAVRA_CHAVE_01 = "palavraChaveUm";
+	public static final String PALAVRA_CHAVE_02 = "palavraChaveDois";
+	public static final String PALAVRA_CHAVE_03 = "palavraChaveTres";
+	public static final String PALAVRA_CHAVE_04 = "palavraChaveQuatro";
+	public static final String PALAVRA_CHAVE_05 = "palavraChaveCinco";
 
 	private EntityType exercicioET;
 
@@ -98,27 +99,32 @@ public class AdaptableExercicioDAO extends AbstractAdaptableDAO {
 	@Override
 	protected void construirEntitiesTypesEPropertiesTypes() {
 		exercicioET = this.lomFacade
-				.findEntityTypeByFullName(FULLNAME_EXERCICIO);
+				.findEntityTypeByFullName(getFullNameExercicioEntityType());
 
 		palavraChave01PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_01,
-						FULLNAME_EXERCICIO);
+						getFullNameExercicioEntityType());
 
 		palavraChave02PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_02,
-						FULLNAME_EXERCICIO);
+						getFullNameExercicioEntityType());
 
 		palavraChave03PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_03,
-						FULLNAME_EXERCICIO);
+						getFullNameExercicioEntityType());
 
 		palavraChave04PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_04,
-						FULLNAME_EXERCICIO);
+						getFullNameExercicioEntityType());
 
 		palavraChave05PT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(PALAVRA_CHAVE_05,
-						FULLNAME_EXERCICIO);
+						getFullNameExercicioEntityType());
+	}
+
+	private String getFullNameExercicioEntityType() {
+		return NAMESPACE_EXERCICIO_ENTITY_TYPE + "."
+				+ NAME_EXERCICIO_ENTITY_TYPE;
 	}
 
 	public Exercicio pesquisarExercicioPorId(String idExercicio) {

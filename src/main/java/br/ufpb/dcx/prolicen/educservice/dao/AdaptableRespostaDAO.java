@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.Conversion;
-
 import br.ufpb.dcx.prolicen.educservice.model.Questao;
 
 import com.nanuvem.lom.api.Entity;
@@ -17,7 +15,13 @@ import com.nanuvem.lom.api.PropertyType;
 
 public class AdaptableRespostaDAO extends AbstractAdaptableDAO {
 
-	private static final String FULLNAME_RESPOSTA_ENTITY = "br.ufpb.educservice.Resposta";
+	public static final String NAMESPACE_RESPOSTA_ENTITY_TYPE = "br.ufpb.educservice";
+	public static final String NAME_RESPOSTA_ENTITY_TYPE = "Resposta";
+
+	public static final String ID_ALUNO_PROPERTY_TYPE_NAME = "idAluno";
+	public static final String ID_EXERCICIO_PROPERTY_TYPE_NAME = "idExercicio";
+	public static final String ID_QUESTAO_PROPERTY_TYPE_NAME = "idQuestao";
+	public static final String ALTERNATIVA_CORRETA_PROPERTY_TYPE_NAME = "alternativaCorreta";
 
 	private EntityType respostaET;
 
@@ -33,22 +37,30 @@ public class AdaptableRespostaDAO extends AbstractAdaptableDAO {
 	@Override
 	protected void construirEntitiesTypesEPropertiesTypes() {
 		this.respostaET = this.lomFacade
-				.findEntityTypeByFullName(FULLNAME_RESPOSTA_ENTITY);
+				.findEntityTypeByFullName(getFullnameRespostaEntityType());
 
 		this.idAlunoPT = this.lomFacade
-				.findPropertyTypeByNameAndFullnameEntityType("idAluno",
-						FULLNAME_RESPOSTA_ENTITY);
+				.findPropertyTypeByNameAndFullnameEntityType(
+						ID_ALUNO_PROPERTY_TYPE_NAME,
+						getFullnameRespostaEntityType());
 		this.idExercicioPT = this.lomFacade
-				.findPropertyTypeByNameAndFullnameEntityType("idExercicio",
-						FULLNAME_RESPOSTA_ENTITY);
+				.findPropertyTypeByNameAndFullnameEntityType(
+						ID_EXERCICIO_PROPERTY_TYPE_NAME,
+						getFullnameRespostaEntityType());
 
 		this.idQuestaoPT = this.lomFacade
-				.findPropertyTypeByNameAndFullnameEntityType("idQUestao",
-						FULLNAME_RESPOSTA_ENTITY);
+				.findPropertyTypeByNameAndFullnameEntityType(
+						ID_QUESTAO_PROPERTY_TYPE_NAME,
+						getFullnameRespostaEntityType());
 
 		this.alternativaCorretaPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
-						"alternativaCorreta", FULLNAME_RESPOSTA_ENTITY);
+						ALTERNATIVA_CORRETA_PROPERTY_TYPE_NAME,
+						getFullnameRespostaEntityType());
+	}
+
+	private String getFullnameRespostaEntityType() {
+		return NAMESPACE_RESPOSTA_ENTITY_TYPE + "." + NAME_RESPOSTA_ENTITY_TYPE;
 	}
 
 	public void cadastrarRespostaQuestaoMEPorId(String idAluno,
@@ -91,10 +103,14 @@ public class AdaptableRespostaDAO extends AbstractAdaptableDAO {
 		nomeDosPropertiesTypesEValoresDeUmaResposta.put(idQuestaoPT.getName(),
 				idQuestao);
 
+		Map<String, String> valoresDasProperties = new HashMap<String, String>();
+		valoresDasProperties.put(ID_ALUNO_PROPERTY_TYPE_NAME, idAluno);
+		valoresDasProperties.put(ID_EXERCICIO_PROPERTY_TYPE_NAME, idExercicio);
+		valoresDasProperties.put(ID_QUESTAO_PROPERTY_TYPE_NAME, idQuestao);
+
 		List<Entity> respostasEntity = this.lomFacade
-				.findEntityByEntityTypeFullnameAndPropertiesTypesNameAndValue(
-						FULLNAME_RESPOSTA_ENTITY,
-						nomeDosPropertiesTypesEValoresDeUmaResposta);
+				.pesquisarEntityPeloValorDeSuasPropertiesTypes(
+						getFullnameRespostaEntityType(), valoresDasProperties);
 
 		if (respostasEntity != null && respostasEntity.size() > 0) {
 			return converterEmResposta(respostasEntity.get(0));

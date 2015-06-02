@@ -21,16 +21,17 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 	// private static final int INDICE_ALTERNATIVA_D = 5;
 	// private static final int INDICE_ALTERNATIVA_E = 6;
 
-	private static final String FULLNAME_QUESTAO_MULTIPLA_ESCOLHA = "br.ufpb.educservice.QuestaoMultiplaEscolha";
+	public static final String NAMESPACE_QUESTAO_MULTIPLA_ESCOLHA = "br.ufpb.educservice";
+	public static final String NAME_QUESTAO_MULTIPLA_ESCOLHA = "QuestaoMultiplaEscolha";
 
-	private static final String ENUNCIADO_PROPERTY_TYPE_NAME = "enunciado";
-	private static final String ALTERNATIVA_CORRETA_PROPERTY_TYPE_NAME = "alternativaCorreta";
-	private static final String ALTERNATIVA_A_PROPERTY_TYPE_NAME = "alternativaA";
-	private static final String ALTERNATIVA_B_PROPERTY_TYPE_NAME = "alternativaB";
-	private static final String ALTERNATIVA_C_PROPERTY_TYPE_NAME = "alternativaC";
-	private static final String ALTERNATIVA_D_PROPERTY_TYPE_NAME = "alternativaD";
-	private static final String ALTERNATIVA_E_PROPERTY_TYPE_NAME = "alternativaE";
-	private static final String ID_EXERCICIO_PROPERTY_TYPE_NAME = "idExercicio";
+	public static final String ENUNCIADO_PROPERTY_TYPE_NAME = "enunciado";
+	public static final String ALTERNATIVA_CORRETA_PROPERTY_TYPE_NAME = "alternativaCorreta";
+	public static final String ALTERNATIVA_A_PROPERTY_TYPE_NAME = "alternativaA";
+	public static final String ALTERNATIVA_B_PROPERTY_TYPE_NAME = "alternativaB";
+	public static final String ALTERNATIVA_C_PROPERTY_TYPE_NAME = "alternativaC";
+	public static final String ALTERNATIVA_D_PROPERTY_TYPE_NAME = "alternativaD";
+	public static final String ALTERNATIVA_E_PROPERTY_TYPE_NAME = "alternativaE";
+	public static final String ID_EXERCICIO_PROPERTY_TYPE_NAME = "idExercicio";
 
 	private EntityType questaoMultilplaEscolhaET;
 
@@ -50,47 +51,52 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 	@Override
 	protected void construirEntitiesTypesEPropertiesTypes() {
 		questaoMultilplaEscolhaET = this.lomFacade
-				.findEntityTypeByFullName(FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+				.findEntityTypeByFullName(getFullnameQuestaoMutiplaEscolha());
 
 		enunciadoPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ENUNCIADO_PROPERTY_TYPE_NAME,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						getFullnameQuestaoMutiplaEscolha());
 
 		alternativaCorretaPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ALTERNATIVA_CORRETA_PROPERTY_TYPE_NAME,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						getFullnameQuestaoMutiplaEscolha());
 
 		alternativaAPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ALTERNATIVA_A_PROPERTY_TYPE_NAME,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						getFullnameQuestaoMutiplaEscolha());
 
 		alternativaBPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ALTERNATIVA_B_PROPERTY_TYPE_NAME,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						getFullnameQuestaoMutiplaEscolha());
 
 		alternativaCPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ALTERNATIVA_C_PROPERTY_TYPE_NAME,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						getFullnameQuestaoMutiplaEscolha());
 
 		alternativaDPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ALTERNATIVA_D_PROPERTY_TYPE_NAME,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						getFullnameQuestaoMutiplaEscolha());
 
 		alternativaEPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ALTERNATIVA_E_PROPERTY_TYPE_NAME,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						getFullnameQuestaoMutiplaEscolha());
 
 		idExercicioPT = this.lomFacade
 				.findPropertyTypeByNameAndFullnameEntityType(
 						ID_EXERCICIO_PROPERTY_TYPE_NAME,
-						FULLNAME_QUESTAO_MULTIPLA_ESCOLHA);
+						getFullnameQuestaoMutiplaEscolha());
+	}
+
+	private String getFullnameQuestaoMutiplaEscolha() {
+		return NAMESPACE_QUESTAO_MULTIPLA_ESCOLHA + "."
+				+ NAME_QUESTAO_MULTIPLA_ESCOLHA;
 	}
 
 	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
@@ -166,10 +172,6 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 
 	private QuestaoMultiplaEscolha converterEmUmaQuestaoME(Entity entity) {
 		List<Property> properties = entity.getProperties();
-		// for(Property p : properties){
-		// System.out.println("Nome: " + p.getPropertyType().getName() +
-		// "\t Valor: " + p.getValue());
-		// }
 
 		String enunciado = properties.get(INDICE_ENUNCIADO).getValue();
 		int alternativaCorreta = Integer.parseInt(properties.get(

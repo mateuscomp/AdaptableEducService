@@ -13,7 +13,12 @@ import com.nanuvem.lom.api.PropertyType;
 
 public class AdaptableAlunoDAO extends AbstractAdaptableDAO {
 
-	private static final String FULLNAME_ALUNO = "br.ufpb.educservice.Aluno";
+	public static final String NAMESPACE_ALUNO_ENTITY_TYPE = "br.ufpb.educservice";
+	public static final String NAME_ALUNO_ENTITY_TYPE = "Aluno";
+
+	public static final String NOME_PROPERTY_TYPE_NAME = "nome";
+	public static final String LOGIN_PROPERTY_TYPE_NAME = "login";
+	public static final String SENHA_PROPERTY_TYPE_NAME = "senha";
 
 	private EntityType alunoET;
 
@@ -52,12 +57,17 @@ public class AdaptableAlunoDAO extends AbstractAdaptableDAO {
 
 	@Override
 	protected void construirEntitiesTypesEPropertiesTypes() {
-		this.alunoET = this.lomFacade.findEntityTypeByFullName(FULLNAME_ALUNO);
+		this.alunoET = this.lomFacade
+				.findEntityTypeByFullName(getFullNameAluno());
 
 		List<PropertyType> propertiesTypes = alunoET.getPropertiesTypes();
 		this.nomePT = propertiesTypes.get(0);
 		this.loginPT = propertiesTypes.get(1);
 		this.senhaPT = propertiesTypes.get(2);
+	}
+
+	private String getFullNameAluno() {
+		return NAMESPACE_ALUNO_ENTITY_TYPE + "." + NAME_ALUNO_ENTITY_TYPE;
 	}
 
 	private Aluno converterEmAluno(Entity alunoEntity) {
