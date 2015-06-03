@@ -187,7 +187,6 @@ public class AdaptableQuestaoMultiplaEscolhaDAO extends AbstractAdaptableDAO {
 					|| ALTERNATIVA_B_PROPERTY_TYPE_NAME.equals(name)
 					|| ALTERNATIVA_C_PROPERTY_TYPE_NAME.equals(name)
 					|| ALTERNATIVA_D_PROPERTY_TYPE_NAME.equals(name)
-					|| ALTERNATIVA_D_PROPERTY_TYPE_NAME.equals(name)
 					|| ALTERNATIVA_E_PROPERTY_TYPE_NAME.equals(name);
 
 			if (ehUmaAlternativa) {

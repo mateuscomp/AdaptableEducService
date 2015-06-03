@@ -30,9 +30,9 @@ public class RespostaDeQuestaoHelper {
 			Assert.assertEquals(indiceAlternativaDaResposta,
 					questaoRespondida.getAlternativaCorreta());
 
-		} finally {
-			questaoRespondida = null;
+		} catch(Exception e) {
 			Assert.fail();
+			e.printStackTrace();
 		}
 		return questaoRespondida;
 	}

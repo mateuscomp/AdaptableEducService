@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.ufpb.dcx.prolicen.educservice.model.Questao;
+import br.ufpb.dcx.prolicen.educservice.model.QuestaoMultiplaEscolha;
 
 import com.nanuvem.lom.api.Entity;
 import com.nanuvem.lom.api.EntityType;
@@ -95,21 +96,13 @@ public class AdaptableRespostaDAO extends AbstractAdaptableDAO {
 	public Questao pesquisarRespostaDeAlunoEmUmaQuestao(String idAluno,
 			String idExercicio, String idQuestao) {
 
-		Map<String, String> nomeDosPropertiesTypesEValoresDeUmaResposta = new HashMap<String, String>();
-		nomeDosPropertiesTypesEValoresDeUmaResposta.put(idAlunoPT.getName(),
-				idAluno);
-		nomeDosPropertiesTypesEValoresDeUmaResposta.put(
-				idExercicioPT.getName(), idExercicio);
-		nomeDosPropertiesTypesEValoresDeUmaResposta.put(idQuestaoPT.getName(),
-				idQuestao);
-
 		Map<String, String> valoresDasProperties = new HashMap<String, String>();
 		valoresDasProperties.put(ID_ALUNO_PROPERTY_TYPE_NAME, idAluno);
 		valoresDasProperties.put(ID_EXERCICIO_PROPERTY_TYPE_NAME, idExercicio);
 		valoresDasProperties.put(ID_QUESTAO_PROPERTY_TYPE_NAME, idQuestao);
 
 		List<Entity> respostasEntity = this.lomFacade
-				.pesquisarEntityPeloValorDeSuasPropertiesTypes(
+				.findEntityByNameOfPropertiesTypeAndByValueOfProperties(
 						getFullnameRespostaEntityType(), valoresDasProperties);
 
 		if (respostasEntity != null && respostasEntity.size() > 0) {
@@ -120,7 +113,19 @@ public class AdaptableRespostaDAO extends AbstractAdaptableDAO {
 	}
 
 	private Questao converterEmResposta(Entity entity) {
-		// TODO Auto-generated method stub
+		// TODO;
+
+		Long id = entity.getId();
+
+		List<Property> properties = entity.getProperties();
+		String enunciado = properties.get(0).getValue();
+		String alternativasA = properties.get(1).getValue();
+		String alternativaB = properties.get(2).getValue();
+		String alternativac = properties.get(3).getValue();
+		String alternativaD = properties.get(4).getValue();
+		String alternativaE = properties.get(5).getValue();
+		String alternativaCorreta = properties.get(6).getValue();
+
 		return null;
 	}
 }
