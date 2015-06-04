@@ -28,7 +28,7 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 				lomFacade);
 		this.alunoDAO = new AdaptableAlunoDAO(lomFacade);
 		this.exercicioDAO = new AdaptableExercicioDAO(lomFacade);
-		this.respostaDAO = new AdaptableRespostaDAO(lomFacade);
+		this.respostaDAO = new AdaptableRespostaDAO(lomFacade, questaoMultiplaEscolhaDAO);
 
 	}
 

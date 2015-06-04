@@ -31,8 +31,12 @@ public class AdaptableRespostaDAO extends AbstractAdaptableDAO {
 	private PropertyType idQuestaoPT;
 	private PropertyType alternativaCorretaPT;
 
-	public AdaptableRespostaDAO(Facade facade) {
+	private AdaptableQuestaoMultiplaEscolhaDAO questaoMultiplaEscolhaDAO;
+
+	public AdaptableRespostaDAO(Facade facade,
+			AdaptableQuestaoMultiplaEscolhaDAO questaoMultiplaEscolhaDAO) {
 		super(facade);
+		this.questaoMultiplaEscolhaDAO = questaoMultiplaEscolhaDAO;
 	}
 
 	@Override
@@ -113,19 +117,15 @@ public class AdaptableRespostaDAO extends AbstractAdaptableDAO {
 	}
 
 	private Questao converterEmResposta(Entity entity) {
-		// TODO;
-
-		Long id = entity.getId();
-
 		List<Property> properties = entity.getProperties();
-		String enunciado = properties.get(0).getValue();
-		String alternativasA = properties.get(1).getValue();
-		String alternativaB = properties.get(2).getValue();
-		String alternativac = properties.get(3).getValue();
-		String alternativaD = properties.get(4).getValue();
-		String alternativaE = properties.get(5).getValue();
-		String alternativaCorreta = properties.get(6).getValue();
 
-		return null;
+		String idQuestao = properties.get(2).getValue();
+		int alternativaCorreta = Integer.parseInt(properties.get(3).getValue());
+
+		QuestaoMultiplaEscolha questao = questaoMultiplaEscolhaDAO
+				.pesquisarQuestaoMEPorId(idQuestao);
+		questao.setAlternativaCorreta(alternativaCorreta);
+
+		return questao;
 	}
 }
