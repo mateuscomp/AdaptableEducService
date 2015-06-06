@@ -1,5 +1,12 @@
 package br.ufpb.dcx.prolicen.educservice;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 
@@ -29,5 +36,49 @@ public class AdaptableEducServiceTest {
 	@After
 	public void finish() {
 		daoFactory.dropDatabaseSchema();
+	}
+
+	public void gerarTrace(Map<String, String> propertyValueMap) {
+		String json = "{";
+
+		boolean ehAPrimeiraProperiedade = true;
+		for (String property : propertyValueMap.keySet()) {
+			if (!ehAPrimeiraProperiedade) {
+				json += ",";
+			}
+
+			json += "\"" + property + "\" : \""
+					+ propertyValueMap.get(property) + "\"";
+			ehAPrimeiraProperiedade = false;
+		}
+		json += "}";
+
+		this.outputTrace(json);
+	}
+
+	private void outputTrace(String texto) {
+		String userHome = System.getProperty("user.home");
+		String separator = System.getProperty("file.separator");
+
+		String nameOfFile = "performaceEvaluationEduServiceTest.log";
+
+		File file = new File(userHome + separator + nameOfFile);
+
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		try {
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(file, true), "UTF-8"));
+			bw.append(texto + "\n");
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

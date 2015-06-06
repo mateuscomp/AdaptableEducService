@@ -10,7 +10,8 @@ public class AlunoHelper {
 			EducServiceFacade facade, String nome, String login, String senha) {
 
 		Aluno aluno = facade.criarAluno(nome, login, senha);
-
+		
+		Assert.assertNotNull(aluno.getId());
 		Assert.assertEquals(nome, aluno.getNome());
 		Assert.assertEquals(login, aluno.getLogin());
 		Assert.assertEquals(senha, aluno.getSenha());
