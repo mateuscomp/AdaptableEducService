@@ -36,8 +36,8 @@ public interface EducServiceFacade {
 
 	public Exercicio pesquisarExercicioPorId(String idExercicio);
 
-	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
-			String enunciado, List<String> alternativas);
+	// public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
+	// String enunciado, List<String> alternativas);
 
 	public QuestaoVouF cadastrarQuestaoVouF(String idExercicio,
 			List<String> afirmativas);

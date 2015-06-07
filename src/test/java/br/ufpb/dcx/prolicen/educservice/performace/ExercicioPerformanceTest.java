@@ -8,34 +8,40 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.ufpb.dcx.prolicen.educservice.AdaptableEducServiceTest;
-import br.ufpb.dcx.prolicen.educservice.helper.AlunoHelper;
+import br.ufpb.dcx.prolicen.educservice.helper.ExercicioHelper;
 
-public class AlunoPerformanceTest extends AdaptableEducServiceTest {
+public class ExercicioPerformanceTest extends AdaptableEducServiceTest {
 
 	@Test
-	public void verificarDesempenhoNasOperacoesAcercaDeAluno() {
+	public void verificarDesempenhoNoCadastroDeExercicio() {
 		try {
-			verificarDesempenhoAoCadastrarAlunos(10);
+			cadastrarEExportarTempoDeExecucaoNoCadastroDeExercicio(10);
 		} catch (Exception e) {
 			Assert.fail();
 		}
 	}
 
-	public void verificarDesempenhoAoCadastrarAlunos(int quantidadeDeAlunos)
-			throws Exception {
+	public void cadastrarEExportarTempoDeExecucaoNoCadastroDeExercicio(
+			int qtdQuestoes) throws Exception {
+
 		Map<String, String> trace = new HashMap<String, String>();
 		trace.put("tipo", PerformanceEvaluationTypeEnum.CREATE.toString());
 		trace.put("nomeDaClasseDeTeste", this.getClass().getSimpleName());
-		trace.put("nomeDoMetodo", "verificarDesempenhoAoCadastrarAlunos");
-		trace.put("quatidadeDeRegistros", String.valueOf(quantidadeDeAlunos));
+		trace.put("nomeDoMetodo",
+				"cadastrarEExportarTempoDeExecucaoNoCadastroDeExercicio");
+		trace.put("quatidadeDeRegistros", String.valueOf(qtdQuestoes));
 		trace.put("horaDeInicioExecucao", new Date().toString());
 
 		long time = 0;
 		try {
-			for (int i = 0; i < quantidadeDeAlunos; i++) {
+			for (int i = 0; i < qtdQuestoes; i++) {
 				long tempoInicial = System.currentTimeMillis();
-				AlunoHelper.verificarCriacaoDeUmAlunoValido(facade,
-						("aluno" + i), ("login" + i), ("senha" + i));
+
+				ExercicioHelper.verificarCriacaoDeUmExercicioValido(facade,
+						("palavraChaveA" + i), ("palavraChaveB" + i),
+						("palavraChaveC" + i), ("palavraChaveD" + i),
+						("palavraChaveE" + i));
+
 				long tempoFinal = System.currentTimeMillis();
 				time += (tempoFinal - tempoInicial);
 

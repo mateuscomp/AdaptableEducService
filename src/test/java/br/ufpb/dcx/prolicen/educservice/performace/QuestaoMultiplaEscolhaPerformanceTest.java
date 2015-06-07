@@ -17,7 +17,7 @@ public class QuestaoMultiplaEscolhaPerformanceTest extends
 	@Test
 	public void verificarDesempenhoNasOperacoesAcercaDeQuestaoDeMultiplaEscolha() {
 		try {
-			verificarDesempenhoAoCadastrarQuestaoMultiplaEscolha(1000);
+			verificarDesempenhoAoCadastrarQuestaoMultiplaEscolha(10);
 		} catch (Exception e) {
 			Assert.fail();
 		}

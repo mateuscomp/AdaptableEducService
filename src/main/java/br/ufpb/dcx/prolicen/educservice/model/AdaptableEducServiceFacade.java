@@ -63,12 +63,12 @@ public class AdaptableEducServiceFacade implements EducServiceFacade {
 	}
 
 	// QUESTÔES DE MULTIPLA ESCOLHA
-	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
-			String enunciado, List<String> alternativas) {
-
-		return this.questaoMultiplaEscolhaDAO.cadastrarQuestaoME(idExercicio,
-				enunciado, alternativas, null);
-	}
+//	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
+//			String enunciado, List<String> alternativas) {
+//
+//		return this.questaoMultiplaEscolhaDAO.cadastrarQuestaoME(idExercicio,
+//				enunciado, alternativas, null);
+//	}
 
 	public QuestaoMultiplaEscolha cadastrarQuestaoME(String idExercicio,
 			String enunciado, List<String> alternativas, int alternativaCorreta) {
