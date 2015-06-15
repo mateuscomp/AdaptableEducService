@@ -5,10 +5,10 @@ import org.junit.Test;
 import br.ufpb.dcx.prolicen.educservice.helper.AlunoHelper;
 import br.ufpb.dcx.prolicen.educservice.helper.ExercicioHelper;
 import br.ufpb.dcx.prolicen.educservice.helper.QuestaoMultiplaEscolhaHelper;
-import br.ufpb.dcx.prolicen.educservice.helper.RespostaDeQuestaoHelper;
 import br.ufpb.dcx.prolicen.educservice.model.Aluno;
 import br.ufpb.dcx.prolicen.educservice.model.Exercicio;
 import br.ufpb.dcx.prolicen.educservice.model.Questao;
+import br.ufpb.dcx.prolicen.educservice.performace.RespostaDeQuestaoPerformanceHelper;
 
 public class RespostaDeQuestaoTest extends AdaptableEducServiceTest {
 
@@ -29,7 +29,7 @@ public class RespostaDeQuestaoTest extends AdaptableEducServiceTest {
 						exercicio, 4, "n = 5, m = 10", "n = 6, m = 15",
 						"n = 7, m = 21", "n = 8, m = 12", "n = 9, m = 22");
 
-		RespostaDeQuestaoHelper
+		RespostaDeQuestaoPerformanceHelper
 				.verificarCriacaoDeUmaRespostaCorretaParaUmaQuestaoDeMultiplaEscolhaValida(
 						facade, aluno.getId(), exercicio.getId(),
 						questaoMultiplaEscolha.getId(), 4);

@@ -1,10 +1,10 @@
-package br.ufpb.dcx.prolicen.educservice.helper;
+package br.ufpb.dcx.prolicen.educservice.performace;
 
 import junit.framework.Assert;
 import br.ufpb.dcx.prolicen.educservice.model.EducServiceFacade;
 import br.ufpb.dcx.prolicen.educservice.model.QuestaoMultiplaEscolha;
 
-public class RespostaDeQuestaoHelper {
+public class RespostaDeQuestaoPerformanceHelper {
 
 	public static QuestaoMultiplaEscolha verificarCriacaoDeUmaRespostaCorretaParaUmaQuestaoDeMultiplaEscolhaValida(
 			EducServiceFacade facade, String idAluno, String idExercicio,

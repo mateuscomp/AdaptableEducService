@@ -25,10 +25,6 @@ public class QuestaoMultiplaEscolhaHelper {
 				exercicio.getId(), enunciado, alternativasList,
 				indiceAlternativaCorreta);
 
-		// QuestaoMultiplaEscolha qMEPesquisada =
-		// facade.pesquisarQuestaoMEPorId(
-		// exercicio.getId(), String.valueOf(qME.getId()));
-
 		Assert.assertNotNull(qME.getId());
 		Assert.assertEquals(enunciado, qME.getEnunciado());
 		Assert.assertEquals(indiceAlternativaCorreta,

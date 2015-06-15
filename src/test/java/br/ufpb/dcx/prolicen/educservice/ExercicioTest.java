@@ -19,6 +19,5 @@ public class ExercicioTest extends AdaptableEducServiceTest {
 	public void verificarCadastroDeUmExercicioComPalavrasChave() {
 		ExercicioHelper.verificarCriacaoDeUmExercicioValido(facade, "extends",
 				"herança", "java", "poo", "lcc");
-
 	}
 }

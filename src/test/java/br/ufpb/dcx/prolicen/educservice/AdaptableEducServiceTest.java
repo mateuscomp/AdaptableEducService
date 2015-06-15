@@ -38,7 +38,7 @@ public class AdaptableEducServiceTest {
 		daoFactory.dropDatabaseSchema();
 	}
 
-	public void gerarTrace(Map<String, String> propertyValueMap) {
+	public static void gerarTrace(Map<String, String> propertyValueMap) {
 		String json = "{";
 
 		boolean ehAPrimeiraProperiedade = true;
@@ -53,10 +53,10 @@ public class AdaptableEducServiceTest {
 		}
 		json += "}";
 
-		this.outputTrace(json);
+		outputTrace(json);
 	}
 
-	private void outputTrace(String texto) {
+	private static void outputTrace(String texto) {
 		String userHome = System.getProperty("user.home");
 		String separator = System.getProperty("file.separator");
 
