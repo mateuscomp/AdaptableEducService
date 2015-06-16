@@ -70,7 +70,7 @@ public class AdaptableGenericDAO extends AbstractAdaptableDAO {
 		criarUmPropertyType(
 				qMEEntityType,
 				AdaptableQuestaoMultiplaEscolhaDAO.ALTERNATIVA_CORRETA_PROPERTY_TYPE_NAME,
-				Type.INTEGER, "{\"mandatory\" : true, \"minvalue\" : 0}");
+				Type.INTEGER, "{\"mandatory\" : true, \"minvalue\" : 1}");
 
 		criarUmPropertyType(
 				qMEEntityType,
@@ -100,8 +100,7 @@ public class AdaptableGenericDAO extends AbstractAdaptableDAO {
 		criarUmPropertyType(
 				qMEEntityType,
 				AdaptableQuestaoMultiplaEscolhaDAO.ID_EXERCICIO_PROPERTY_TYPE_NAME,
-				Type.INTEGER,
-				"{\"mandatory\" : true, \"minvalue\" : 1, \"maxvalue\" : 5}");
+				Type.INTEGER, "{\"mandatory\" : true, \"minvalue\" : 1}");
 	}
 
 	private void criarEntityTypeEPropertiesTypesDeRepostaDeQuetaoDeMultilplaEscolha() {

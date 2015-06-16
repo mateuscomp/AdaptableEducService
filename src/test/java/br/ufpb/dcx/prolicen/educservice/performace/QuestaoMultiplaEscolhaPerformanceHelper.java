@@ -29,8 +29,8 @@ public class QuestaoMultiplaEscolhaPerformanceHelper {
 
 	public static void cadastrarQuestaoMultiplaEscolha(
 			AdaptableEducServiceFacade facade, Exercicio exercicio) {
+		
 		int qtdMaxAlternativas = 5;
-
 		List<String> alternativasList = new LinkedList<String>();
 		for (int i = 0; i < qtdMaxAlternativas; i++) {
 			alternativasList.add("alternativa" + (i + 1));

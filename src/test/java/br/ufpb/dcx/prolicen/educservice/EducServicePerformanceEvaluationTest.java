@@ -1,11 +1,14 @@
-package br.ufpb.dcx.prolicen.educservice.performace;
+package br.ufpb.dcx.prolicen.educservice;
 
 import org.junit.Test;
 
-import br.ufpb.dcx.prolicen.educservice.AdaptableEducServiceTest;
 import br.ufpb.dcx.prolicen.educservice.model.Exercicio;
+import br.ufpb.dcx.prolicen.educservice.performace.AlunoPerformanceHelper;
+import br.ufpb.dcx.prolicen.educservice.performace.ExercicioPerformanceHelper;
+import br.ufpb.dcx.prolicen.educservice.performace.QuestaoMultiplaEscolhaPerformanceHelper;
 
-public class EducServicePerformanceEvaluation extends AdaptableEducServiceTest {
+public class EducServicePerformanceEvaluationTest extends
+		AdaptableEducServiceTest {
 
 	/**
 	 * Cenário 1: Cadastrar 10.000 alunos e medir o tempo de cada cadastro.
@@ -20,7 +23,7 @@ public class EducServicePerformanceEvaluation extends AdaptableEducServiceTest {
 		for (int i = 0; i < quantidadeDeAlunosACadastrar; i++) {
 			AlunoPerformanceHelper.cadastrarAlunoEExportarTempoGasto(facade, i,
 					"#tempoCadastroAluno");
-			sleep(500);
+			sleep(2000);
 		}
 	}
 
@@ -39,11 +42,7 @@ public class EducServicePerformanceEvaluation extends AdaptableEducServiceTest {
 			QuestaoMultiplaEscolhaPerformanceHelper
 					.cadastrarQuestaoMultiplaEscolhaEExportarTempoGasto(facade,
 							exercicio, i, "#tempoCadastroQuestao1Exercicio");
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			sleep(2000);
 		}
 	}
 
@@ -62,7 +61,7 @@ public class EducServicePerformanceEvaluation extends AdaptableEducServiceTest {
 					.cadastrarExercicioComQuestoesDeMultiplaEscolhaEExportarTempoGasto(
 							facade, quantidadeDeQuestoes,
 							"#tempoCadastroExercicio10Questoes");
-			sleep(500);
+			sleep(5000);
 		}
 	}
 
@@ -77,7 +76,7 @@ public class EducServicePerformanceEvaluation extends AdaptableEducServiceTest {
 	public void coletarTempoDePesquisaDeExercicioEAlunoDepoisComMuitosExerciciosEMuitosAlunosCadastrados() {
 		int qtdDeExerciciosEAlunos = 10000;
 		int qtdQuestoesPorExercicio = 10;
-		long timeSleep = 1000;
+		long timeSleep = 5000;
 
 		this.cadastrarMuitosAlunosMuitosExerciciosMuitasQuestoes(
 				qtdDeExerciciosEAlunos, qtdQuestoesPorExercicio, timeSleep);
@@ -89,19 +88,27 @@ public class EducServicePerformanceEvaluation extends AdaptableEducServiceTest {
 		}
 
 		for (int i = 0; i < qtdDeExerciciosEAlunos; i++) {
+			String idDoExercicio = String.valueOf(i * 10 + 2 * i + 2);
 			ExercicioPerformanceHelper.pesquisarExercioEExportarTempoGasto(
-					facade, String.valueOf(i), "#tempoPesquisaExercicio");
+					facade, idDoExercicio, "#tempoPesquisaExercicio");
 			sleep(timeSleep);
 		}
 
-		for (int i = 0; i < qtdDeExerciciosEAlunos; i++) {
-			int idQuestao = ((i - 1) * qtdQuestoesPorExercicio) + 1;
-
-			QuestaoMultiplaEscolhaPerformanceHelper
-					.pesquisarPrimeiraQuestaoDeMultiplaEscolhaDeExercicioEExportarTempoGasto(
-							facade, String.valueOf(i),
-							String.valueOf(idQuestao), "#tempoPesquisaQuestao");
-			sleep(timeSleep);
+		int idQuestao = 3;
+		for (int i = 0; i < qtdQuestoesPorExercicio; i++) {
+			for (int j = 1; j <= qtdDeExerciciosEAlunos; j++) {
+				QuestaoMultiplaEscolhaPerformanceHelper
+						.pesquisarPrimeiraQuestaoDeMultiplaEscolhaDeExercicioEExportarTempoGasto(
+								facade, String.valueOf(j),
+								String.valueOf(idQuestao),
+								"#tempoPesquisaQuestao");
+				sleep(timeSleep);
+				idQuestao++;
+			}
+			
+			// Esse incremento ocorre devido a quantidade de property criada
+			// quando um novo exercicio é criado
+			idQuestao += 2;
 		}
 	}
 
