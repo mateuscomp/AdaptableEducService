@@ -17,9 +17,9 @@ public class ExercicioPerformanceHelper {
 
 		Map<String, String> trace = new HashMap<String, String>();
 		trace.put("id", idTrace);
-
+		
+		long tempoInicial = System.currentTimeMillis();
 		Exercicio exercicio = criarExercicioComCincoPalavrasChave(facade);
-
 		for (int i = 0; i < quantidadeDeQuestoes; i++) {
 			List<String> alternativas = new LinkedList<String>();
 			alternativas.add("alternativaA" + i);
@@ -31,6 +31,9 @@ public class ExercicioPerformanceHelper {
 			facade.cadastrarQuestaoME(exercicio.getId(), "enunciado" + i,
 					alternativas, 1);
 		}
+		long tempoFinal = System.currentTimeMillis() - tempoInicial;
+		trace.put("tempoGastoEmMilisegundos", String.valueOf(tempoFinal));
+		AdaptableEducServiceTest.gerarTrace(trace);
 	}
 
 	public static Exercicio criarExercicioComCincoPalavrasChave(

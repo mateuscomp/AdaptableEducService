@@ -57,12 +57,13 @@ public class AdaptableEducServiceTest {
 	}
 
 	private static void outputTrace(String texto) {
-		String userHome = System.getProperty("user.home");
-		String separator = System.getProperty("file.separator");
+		// String userHome = System.getProperty("user.home");
+		// String separator = System.getProperty("file.separator");
 
 		String nameOfFile = "performaceEvaluationEduServiceTest.log";
 
-		File file = new File(userHome + separator + nameOfFile);
+		// File file = new File(userHome + separator + nameOfFile);
+		File file = new File(nameOfFile);
 
 		if (!file.exists()) {
 			try {
