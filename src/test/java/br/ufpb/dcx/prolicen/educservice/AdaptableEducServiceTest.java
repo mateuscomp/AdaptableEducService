@@ -15,7 +15,7 @@ import br.ufpb.dcx.prolicen.educservice.model.AdaptableEducServiceFacade;
 import com.nanuvem.lom.api.Facade;
 import com.nanuvem.lom.api.dao.DaoFactory;
 import com.nanuvem.lom.business.BusinessFacade;
-import com.nanuvem.lom.kernel.dao.MySqlDaoFactory;
+import com.nanuvem.lom.dao.neo4j.Neo4JDaoFactory;
 
 public class AdaptableEducServiceTest {
 
@@ -24,7 +24,7 @@ public class AdaptableEducServiceTest {
 
 	@Before
 	public void init() {
-		daoFactory = new MySqlDaoFactory();
+		daoFactory = new Neo4JDaoFactory();
 		daoFactory.createDatabaseSchema();
 
 		Facade lomFacade = new BusinessFacade(daoFactory);
